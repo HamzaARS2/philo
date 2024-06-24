@@ -1,7 +1,7 @@
-CC := cc
+CC := gcc
 # CFLAGS := -Wall -Wextra -Werror
 
-MAIN_FILES = philo.c ft_atoi.c philo_init.c
+MAIN_FILES = philo.c ft_atoi.c philo_init.c await.c
 
 MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
@@ -13,9 +13,6 @@ $(NAME): $(MAIN_OBJS)
 	$(CC) $(MAIN_OBJS) -o $@
 
 %.o: %.c philo.h
-	$(CC) -c $< -o $@
-
-%_bonus.o: %_bonus.c
 	$(CC) -c $< -o $@
 
 clean:
