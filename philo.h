@@ -9,9 +9,9 @@
 
 typedef struct s_pinfo {
     int pnumber;
-    int tdie;
-    int teat;
-    int tsleep;
+    int die_time;
+    int eat_time;
+    int sleep_time;
     int num_eats;
 } t_pinfo;
 
@@ -29,7 +29,14 @@ typedef struct s_philo_details {
 } t_philo_details;
 
 void    await(unsigned long milies_time);
-int	ft_atoi(const char *str);
-int philo_init(t_pinfo *pinfo, int count, char **data);
+int	    ft_atoi(const char *str);
+int     philo_init(t_pinfo *pinfo, int count, char **data);
 
+void    join_threads(t_philo **philos, t_pinfo pinfo);
+
+t_philo **create_philos(t_pinfo pinfo);
+void    assign_forks(t_philo **philos, t_pinfo pinfo);
+void    start_lunch(t_philo **philos, t_pinfo pinfo, void *(*run)(void *));
+
+void    *lunch(void *param);
 #endif 

@@ -20,9 +20,9 @@ int philo_init(t_pinfo *pinfo, int count, char **data)
     pinfo->pnumber = ft_atoi(data[0]);
     if (pinfo->pnumber <= 0)
         return (0);
-    pinfo->tdie = ft_atoi(data[1]);
-    pinfo->teat = ft_atoi(data[2]);
-    pinfo->tsleep = ft_atoi(data[3]);
+    pinfo->die_time = ft_atoi(data[1]);
+    pinfo->eat_time = ft_atoi(data[2]);
+    pinfo->sleep_time = ft_atoi(data[3]);
     if (data[4])
         pinfo->num_eats = ft_atoi(data[4]);
     else

@@ -1,7 +1,8 @@
 CC := gcc
 # CFLAGS := -Wall -Wextra -Werror
 
-MAIN_FILES = philo.c ft_atoi.c philo_init.c await.c
+MAIN_FILES = philo.c ft_atoi.c philo_init.c await.c create_philos.c join_threads.c \
+lunch.c
 
 MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
