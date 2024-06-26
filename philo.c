@@ -30,7 +30,8 @@ int main(int ac, char **av)
     if (!philos)
         return (0);
     assign_forks(philos, pinfo);
-    start_lunch(philos, pinfo, lunch);
+    start_lunch(philos, pinfo);
+
     
     join_threads(philos, pinfo);
 

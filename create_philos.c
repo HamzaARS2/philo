@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:38:55 by helarras          #+#    #+#             */
-/*   Updated: 2024/06/25 01:07:52 by helarras         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:15:13 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,18 @@ void    assign_forks(t_philo **philos, t_pinfo pinfo)
     }
 }
 
-void    start_lunch(t_philo **philos, t_pinfo pinfo, void *(*lunch)(void *))
+void    start_lunch(t_philo **philos, t_pinfo pinfo)
 {
     int i;
 
     i = 0;
+    // program time for the whole philos
     while (i < pinfo.pnumber)
     {
-        pthread_create(&(philos[i]->thread), NULL,lunch , philos[i]);
+        // if ((i + 1) % 2 == 1)
+        pthread_create(&(philos[i]->thread), NULL, lunch, philos[i]);
+        // pthread_create(&(philos[i]->thread), NULL, routine, philos[i]);
         i++;
     }
+    // create a monitor thread that would watch over the philos timers *died = 1;
 }
