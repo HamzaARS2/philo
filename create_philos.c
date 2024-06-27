@@ -67,18 +67,38 @@ void    assign_forks(t_philo **philos, t_pinfo pinfo)
     }
 }
 
+void    *monitor(void *param)
+{
+    t_philo **philos = (t_philo **)param;
+    int died = 0;
+    int i;
+
+    while (!died) {
+        i = 0;
+        while (philos[i])
+        {
+            if (timestamp(start_time) - philos[i]->pinfo.last_meal)
+            i++;
+        }
+        
+    }
+}
+
 void    start_lunch(t_philo **philos, t_pinfo pinfo)
 {
     int i;
+    pthread_t mthread;
 
     i = 0;
     // program time for the whole philos
+    // Work on organizing your structs and work and start time!!
     while (i < pinfo.pnumber)
     {
         // if ((i + 1) % 2 == 1)
-        pthread_create(&(philos[i]->thread), NULL, lunch, philos[i]);
+        pthread_create(&(philos[i]->thread), NULL, routine, philos[i]);
         // pthread_create(&(philos[i]->thread), NULL, routine, philos[i]);
         i++;
     }
     // create a monitor thread that would watch over the philos timers *died = 1;
+    pthread_create(&mthread, NULL, monitor, philos);
 }

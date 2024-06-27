@@ -14,5 +14,4 @@ void    await(unsigned long milies_time)
         {
             gettimeofday(&current_time, NULL);
         }
-
 }

@@ -12,6 +12,8 @@ typedef struct s_pinfo {
     int die_time;
     int eat_time;
     int sleep_time;
+    int last_meal;
+    int start_time;
     int num_eats;
 } t_pinfo;
 
@@ -23,10 +25,6 @@ typedef struct s_philo {
     t_pinfo pinfo;
 } t_philo;
 
-typedef struct s_philo_details {
-    t_philo *philo;
-    t_pinfo pinfo;
-} t_philo_details;
 
 unsigned long   timestamp(struct timeval start_time);
 void    await(unsigned long milies_time);
@@ -39,5 +37,5 @@ t_philo **create_philos(t_pinfo pinfo);
 void    assign_forks(t_philo **philos, t_pinfo pinfo);
 void    start_lunch(t_philo **philos, t_pinfo pinfo);
 
-void    *lunch(void *param);
+void    *routine(void *param);
 #endif 
