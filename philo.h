@@ -8,12 +8,11 @@
 #include <sys/time.h>
 
 typedef struct s_pinfo {
+    struct timeval start_time;
     int pnumber;
     int die_time;
     int eat_time;
     int sleep_time;
-    int last_meal;
-    int start_time;
     int num_eats;
 } t_pinfo;
 
@@ -22,8 +21,10 @@ typedef struct s_philo {
     pthread_t       thread;
     pthread_mutex_t *l_fork;
     pthread_mutex_t *r_fork;
+    int last_meal;
     t_pinfo pinfo;
 } t_philo;
+
 
 
 unsigned long   timestamp(struct timeval start_time);

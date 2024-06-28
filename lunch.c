@@ -23,17 +23,17 @@ void    eat(t_philo *philo, struct timeval start_time, int eat_time)
 void    t_sleep(t_philo *philo, struct timeval start_time, int sleep_time)
 {
     printf("%ld %i is sleeping\n", timestamp(start_time), philo->id);
-    philo->pinfo.last_meal = timestamp(start_time);
     await(sleep_time);
+    philo->last_meal = timestamp(start_time);
 }
 
 void    think(t_philo *philo, struct timeval start_time)
 {
     printf("%ld %i is thinking\n", timestamp(start_time), philo->id);
     pthread_mutex_lock(philo->r_fork);
-    printf("%ld %i has taken a right fork\n", timestamp(start_time), philo->id);
+    printf("%ld %i has taken a fork\n", timestamp(start_time), philo->id);
     pthread_mutex_lock(philo->l_fork);
-    printf("%ld %i has taken a left fork\n", timestamp(start_time), philo->id);
+    printf("%ld %i has taken a fork\n", timestamp(start_time), philo->id);
 }
 
 
@@ -41,13 +41,14 @@ void    *routine(void *param)
 {
     t_philo *philo = (t_philo *)param;
     t_pinfo pinfo = philo->pinfo;
-    struct timeval start_time;
 
-    gettimeofday(&start_time, NULL);
+    if (philo->id % 2 == 0)
+        t_sleep(philo, pinfo.start_time, pinfo.sleep_time);
+
     while (1)
     {
-        think(philo, start_time);
-        eat(philo, start_time, pinfo.eat_time);
-        t_sleep(philo, start_time, pinfo.sleep_time);
+        think(philo, pinfo.start_time);
+        eat(philo, pinfo.start_time, pinfo.eat_time);
+        t_sleep(philo, pinfo.start_time, pinfo.sleep_time);
     }
 }

@@ -32,7 +32,6 @@ int main(int ac, char **av)
     assign_forks(philos, pinfo);
     start_lunch(philos, pinfo);
 
-    
     join_threads(philos, pinfo);
 
 }
