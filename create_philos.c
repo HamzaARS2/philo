@@ -80,8 +80,8 @@ void    *monitor(void *param)
             if (timestamp(philos[i]->pinfo.start_time) - philos[i]->last_meal >= philos[i]->pinfo.die_time)
             {
                 died = 1;
-                printf("dietimel %i\n", philos[i]->pinfo.die_time);
-                printf("%ld %i is DEAD\n", timestamp(philos[i]->pinfo.start_time), philos[i]->id);
+                printf("%ld %i is died\n", timestamp(philos[i]->pinfo.start_time), philos[i]->id);
+                exit(0);
             }
             i++;
         }
