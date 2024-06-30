@@ -16,17 +16,28 @@ typedef struct s_pinfo {
     int num_eats;
 } t_pinfo;
 
+typedef struct s_shared_data {
+    int last_meal;
+    pthread_mutex_t last_meal_mutex;
+} t_shared_data;
+
 typedef struct s_philo {
     int             id;
     pthread_t       thread;
     pthread_mutex_t *l_fork;
     pthread_mutex_t *r_fork;
+    t_shared_data sd;
     int last_meal;
     t_pinfo pinfo;
 } t_philo;
 
 
+// setters
+void    set_last_meal(t_shared_data *sd ,struct timeval start_time);
+// getters
+int get_last_meal(t_shared_data *sd);
 
+void    *monitor(void *param);
 unsigned long   timestamp(struct timeval start_time);
 void    await(unsigned long milies_time);
 int	    ft_atoi(const char *str);

@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   join_threads.c                                     :+:      :+:    :+:   */
+/*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/25 01:01:08 by helarras          #+#    #+#             */
-/*   Updated: 2024/06/30 20:04:43 by helarras         ###   ########.fr       */
+/*   Created: 2024/06/30 18:23:01 by helarras          #+#    #+#             */
+/*   Updated: 2024/06/30 18:36:09 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void    join_threads(t_philo **philos, t_pinfo pinfo)
+int get_last_meal(t_shared_data *sd)
 {
-    int i;
-
-    i = 0;
-    while (i < pinfo.pnumber)
-        pthread_join(philos[i++]->thread, NULL);
+    int last_meal;
+    pthread_mutex_lock(&sd->last_meal_mutex);
+    last_meal = sd->last_meal;
+    pthread_mutex_unlock(&sd->last_meal_mutex);
+    return (last_meal);
 }

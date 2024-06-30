@@ -1,12 +1,12 @@
-/*                                                                            */
 /* ************************************************************************** */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   lunch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 01:10:31 by helarras          #+#    #+#             */
-/*   Updated: 2024/06/26 22:19:49 by helarras         ###   ########.fr       */
+/*   Updated: 2024/06/30 19:04:27 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void    eat(t_philo *philo, struct timeval start_time, int eat_time)
 {
     printf("%ld %i is eating\n", timestamp(start_time), philo->id);
+    set_last_meal(&philo->sd, start_time);
     await(eat_time);
-    //philo->last_meal = timestamp(start_time);
+    philo->last_meal = timestamp(start_time);
     pthread_mutex_unlock(philo->r_fork);
     pthread_mutex_unlock(philo->l_fork);
 }
@@ -35,12 +36,6 @@ void    think(t_philo *philo, struct timeval start_time)
     pthread_mutex_lock(philo->l_fork);
     printf("%ld %i has taken a fork\n", timestamp(start_time), philo->id);
 }
-pthread_mutex_t m;
-void    update_last_meal(int *last_meal, struct timeval start_time) {
-    pthread_mutex_lock(&m);
-    *last_meal = timestamp(start_time);
-    pthread_mutex_unlock(&m);
-}
 
 void    *routine(void *param)
 {
@@ -48,7 +43,7 @@ void    *routine(void *param)
     t_pinfo pinfo = philo->pinfo;
 
 
-    update_last_meal(&philo->last_meal, pinfo.start_time);
+    set_last_meal(&philo->sd, pinfo.start_time);
     if (philo->id % 2 == 0)
         t_sleep(philo, pinfo.start_time, pinfo.sleep_time);
 
