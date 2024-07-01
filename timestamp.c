@@ -12,21 +12,15 @@
 
 #include "philo.h"
 
-unsigned long   timestamp(struct timeval start_time)
+unsigned long   timestamp()
 {
-    struct timeval current_time;
-    long seconds;
-    long useconds;
-    unsigned long timestamp;
+    struct timeval ct;
     
-    gettimeofday(&current_time, NULL);
-    seconds = current_time.tv_sec - start_time.tv_sec;
-    useconds = current_time.tv_usec - start_time.tv_usec;
-    if (useconds < 0)
-    {
-        seconds -= 1;
-        useconds += 1000000;
-    }
-    timestamp = (seconds * 1000) + (useconds / 1000);
-    return (timestamp);
+    gettimeofday(&ct, NULL);
+    return (ct.tv_sec * 1000) + (ct.tv_usec / 1000);
+}
+
+unsigned long program_time(long start_time)
+{
+    return (timestamp() - start_time);
 }

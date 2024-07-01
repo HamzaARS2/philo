@@ -1,20 +1,10 @@
 #include "philo.h"
 
-void    await(unsigned long milies_time)
+void    await(unsigned long ms)
 {
-    struct timeval current_time;
-    struct timeval end_time;
+    unsigned long start_time;
     
-    gettimeofday(&current_time, NULL);
-    end_time.tv_sec =  current_time.tv_sec + (milies_time / 1000);
-    end_time.tv_usec = current_time.tv_usec + ((milies_time % 1000) * 1000);
-
-    if (end_time.tv_usec >= 1000000) {
-        end_time.tv_sec += end_time.tv_usec / 1000000;;
-        end_time.tv_usec %= 1000000;
-    }
-
-    while ((current_time.tv_sec < end_time.tv_sec) 
-        || ((current_time.tv_sec == end_time.tv_sec) && (current_time.tv_usec <= end_time.tv_usec)))
-            gettimeofday(&current_time, NULL);
+    start_time = timestamp();
+    while (timestamp() - start_time < ms)
+        usleep(50);
 }

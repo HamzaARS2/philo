@@ -7,8 +7,16 @@
 #include <pthread.h>
 #include <sys/time.h>
 
+typedef enum e_status {
+    FORK_TAKEN,
+    EAT,
+    SLEEP,
+    THINK,
+    DIED
+} t_status;
+
 typedef struct s_pinfo {
-    struct timeval start_time;
+    long start_time;
     int pnumber;
     int die_time;
     int eat_time;
@@ -17,8 +25,9 @@ typedef struct s_pinfo {
 } t_pinfo;
 
 typedef struct s_shared_data {
-    int last_meal;
+    unsigned long last_meal;
     pthread_mutex_t last_meal_mutex;
+    pthread_mutex_t print_mutex;
 } t_shared_data;
 
 typedef struct s_philo {
@@ -27,18 +36,20 @@ typedef struct s_philo {
     pthread_mutex_t *l_fork;
     pthread_mutex_t *r_fork;
     t_shared_data sd;
-    int last_meal;
     t_pinfo pinfo;
 } t_philo;
 
 
 // setters
-void    set_last_meal(t_shared_data *sd ,struct timeval start_time);
+void    set_last_meal(t_shared_data *sd);
 // getters
-int get_last_meal(t_shared_data *sd);
+unsigned long get_last_meal(t_shared_data *sd);
+
+void    safe_print(t_philo *philo, t_status status);
 
 void    *monitor(void *param);
-unsigned long   timestamp(struct timeval start_time);
+unsigned long   timestamp();
+unsigned long program_time(long start_time);
 void    await(unsigned long milies_time);
 int	    ft_atoi(const char *str);
 int     philo_init(t_pinfo *pinfo, int count, char **data);

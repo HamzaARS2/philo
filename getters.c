@@ -12,9 +12,9 @@
 
 #include "philo.h"
 
-int get_last_meal(t_shared_data *sd)
+unsigned long get_last_meal(t_shared_data *sd)
 {
-    int last_meal;
+    unsigned long last_meal;
     pthread_mutex_lock(&sd->last_meal_mutex);
     last_meal = sd->last_meal;
     pthread_mutex_unlock(&sd->last_meal_mutex);

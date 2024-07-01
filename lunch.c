@@ -12,29 +12,38 @@
 
 #include "philo.h"
 
-void    eat(t_philo *philo, struct timeval start_time, int eat_time)
+void    eat(t_philo *philo)
 {
-    printf("%ld %i is eating\n", timestamp(start_time), philo->id);
-    set_last_meal(&philo->sd, start_time);
-    await(eat_time);
-    philo->last_meal = timestamp(start_time);
+    t_pinfo pinfo;
+
+    pinfo = philo->pinfo;
+    pthread_mutex_lock(philo->r_fork);
+    safe_print(philo, FORK_TAKEN);
+    pthread_mutex_lock(philo->l_fork);
+    safe_print(philo, FORK_TAKEN);
+    safe_print(philo, EAT);
+    set_last_meal(&philo->sd);
+    await(pinfo.eat_time);
     pthread_mutex_unlock(philo->r_fork);
     pthread_mutex_unlock(philo->l_fork);
 }
 
-void    t_sleep(t_philo *philo, struct timeval start_time, int sleep_time)
+void    t_sleep(t_philo *philo)
 {
-    printf("%ld %i is sleeping\n", timestamp(start_time), philo->id);
-    await(sleep_time);
+    t_pinfo pinfo;
+
+    pinfo = philo->pinfo;
+    safe_print(philo, SLEEP);
+    await(pinfo.sleep_time);
 }
 
-void    think(t_philo *philo, struct timeval start_time)
+void    think(t_philo *philo)
 {
-    printf("%ld %i is thinking\n", timestamp(start_time), philo->id);
-    pthread_mutex_lock(philo->r_fork);
-    printf("%ld %i has taken a fork\n", timestamp(start_time), philo->id);
-    pthread_mutex_lock(philo->l_fork);
-    printf("%ld %i has taken a fork\n", timestamp(start_time), philo->id);
+    t_pinfo pinfo;
+
+    pinfo = philo->pinfo;
+    safe_print(philo, THINK);
+    
 }
 
 void    *routine(void *param)
@@ -43,14 +52,15 @@ void    *routine(void *param)
     t_pinfo pinfo = philo->pinfo;
 
 
-    set_last_meal(&philo->sd, pinfo.start_time);
+    
     if (philo->id % 2 == 0)
-        t_sleep(philo, pinfo.start_time, pinfo.sleep_time);
+        t_sleep(philo);
 
     while (1)
     {
-        think(philo, pinfo.start_time);
-        eat(philo, pinfo.start_time, pinfo.eat_time);
-        t_sleep(philo, pinfo.start_time, pinfo.sleep_time);
+        think(philo);
+        eat(philo);
+        t_sleep(philo);
     }
+    
 }

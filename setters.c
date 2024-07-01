@@ -12,9 +12,9 @@
 
 #include "philo.h"
 
-void    set_last_meal(t_shared_data *sd ,struct timeval start_time)
+void    set_last_meal(t_shared_data *sd)
 {
     pthread_mutex_lock(&sd->last_meal_mutex);
-    sd->last_meal = timestamp(start_time);
+    sd->last_meal = timestamp();
     pthread_mutex_unlock(&sd->last_meal_mutex);
 }

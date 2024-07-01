@@ -17,15 +17,20 @@ void    *monitor(void *param)
     t_philo **philos = (t_philo **)param;
     int died = 0;
     int i;
+    long long s;
 
     while (!died) {
         i = 0;
         while (philos[i])
         {
-            if (timestamp(philos[i]->pinfo.start_time) - get_last_meal(&philos[i]->sd) >= philos[i]->pinfo.die_time)
+            // Fix this timestamp 0 get_last_meal, it gives wrong value sometimes
+            s = timestamp() - philos[i]->sd.last_meal;
+            // s = timestamp() - get_last_meal(&philos[i]->sd);
+            // printf(">>>>>>>%lld\n", s);
+            if (s >= philos[i]->pinfo.die_time)
             {
                 died = 1;
-                printf("%ld %i died\n", timestamp(philos[i]->pinfo.start_time), philos[i]->id);
+                safe_print(philos[i], DIED);
                 exit(0);
             }
             i++;

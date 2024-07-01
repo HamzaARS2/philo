@@ -74,10 +74,11 @@ void    start_lunch(t_philo **philos, t_pinfo pinfo)
     pthread_t   mthread;
 
     i = 0;
-    gettimeofday(&pinfo.start_time, NULL);
+    pinfo.start_time = timestamp();
     while (i < pinfo.pnumber)
     {
         philos[i]->pinfo = pinfo;
+        set_last_meal(&philos[i]->sd);
         pthread_create(&(philos[i]->thread), NULL, routine, philos[i]);
         i++;
     }
