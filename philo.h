@@ -16,6 +16,9 @@ typedef enum e_status {
 } t_status;
 
 typedef struct s_pinfo {
+    pthread_mutex_t print_mutex;
+    pthread_mutex_t died_mutex;
+    int died;
     long start_time;
     int pnumber;
     int die_time;
@@ -25,9 +28,9 @@ typedef struct s_pinfo {
 } t_pinfo;
 
 typedef struct s_shared_data {
-    unsigned long last_meal;
     pthread_mutex_t last_meal_mutex;
-    pthread_mutex_t print_mutex;
+    unsigned long last_meal;
+    
 } t_shared_data;
 
 typedef struct s_philo {
@@ -42,8 +45,11 @@ typedef struct s_philo {
 
 // setters
 void    set_last_meal(t_shared_data *sd);
+void    set_died(t_pinfo *pinfo, int boolean);
+
 // getters
 unsigned long get_last_meal(t_shared_data *sd);
+int get_died(t_pinfo *pinfo);
 
 void    safe_print(t_philo *philo, t_status status);
 

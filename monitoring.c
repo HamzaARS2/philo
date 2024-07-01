@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 19:56:49 by helarras          #+#    #+#             */
-/*   Updated: 2024/06/30 19:57:14 by helarras         ###   ########.fr       */
+/*   Updated: 2024/07/01 19:59:27 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,15 @@
 void    *monitor(void *param)
 {
     t_philo **philos = (t_philo **)param;
-    int died = 0;
     int i;
-    long long s;
 
-    while (!died) {
+    while (!get_died(&philos[0]->pinfo)) {
         i = 0;
         while (philos[i])
         {
-            // Fix this timestamp 0 get_last_meal, it gives wrong value sometimes
-            s = timestamp() - philos[i]->sd.last_meal;
-            // s = timestamp() - get_last_meal(&philos[i]->sd);
-            // printf(">>>>>>>%lld\n", s);
-            if (s >= philos[i]->pinfo.die_time)
+            if (timestamp() - get_last_meal(&philos[i]->sd) >= philos[i]->pinfo.die_time)
             {
-                died = 1;
+                set_died(&philos[0]->pinfo, 1);
                 safe_print(philos[i], DIED);
                 exit(0);
             }
