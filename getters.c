@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:23:01 by helarras          #+#    #+#             */
-/*   Updated: 2024/07/01 19:56:14 by helarras         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:09:10 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int get_died(t_pinfo *pinfo)
 {
     int boolean;
     
-    pthread_mutex_lock(&pinfo->died_mutex);
+    pthread_mutex_lock(pinfo->died_mutex);
     boolean = pinfo->died;
-    pthread_mutex_unlock(&pinfo->died_mutex);
+    pthread_mutex_unlock(pinfo->died_mutex);
     return (boolean);
 }

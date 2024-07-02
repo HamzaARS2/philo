@@ -12,17 +12,16 @@
 
 #include "philo.h"
 
-
-
-
-void    ff() {
+void    ff()
+{
     system("leaks -q philo");
 }
+
 int main(int ac, char **av)
 {
-    t_pinfo pinfo;
-    t_philo **philos;
-    pthread_mutex_t mutex;
+    t_pinfo     *pinfo;
+    t_philo     **philos;
+    pthread_t   mthread;
 
     atexit(ff);
     philo_init(&pinfo, ac - 1, av + 1);
@@ -31,8 +30,10 @@ int main(int ac, char **av)
         return (0);
     assign_forks(philos, pinfo);
     start_lunch(philos, pinfo);
-
+    pthread_create(&mthread, NULL, monitor, philos);
     join_threads(philos, pinfo);
-
+    pthread_join(mthread, NULL);
+    
+    free_resources(philos, pinfo);
 }
 

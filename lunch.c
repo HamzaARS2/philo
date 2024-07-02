@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 01:10:31 by helarras          #+#    #+#             */
-/*   Updated: 2024/07/01 20:03:35 by helarras         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:23:07 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void    eat(t_philo *philo)
 {
-    t_pinfo pinfo;
+    t_pinfo *pinfo;
 
     pinfo = philo->pinfo;
     pthread_mutex_lock(philo->l_fork);
@@ -23,37 +23,33 @@ void    eat(t_philo *philo)
     safe_print(philo, FORK_TAKEN);
     safe_print(philo, EAT);
     set_last_meal(&philo->sd);
-    await(pinfo.eat_time);
+    await(pinfo->eat_time);
     pthread_mutex_unlock(philo->r_fork);
     pthread_mutex_unlock(philo->l_fork);
 }
 
 void    t_sleep(t_philo *philo)
 {
-    t_pinfo pinfo;
+    t_pinfo *pinfo;
 
     pinfo = philo->pinfo;
     safe_print(philo, SLEEP);
-    await(pinfo.sleep_time);
+    await(pinfo->sleep_time);
 }
 
 void    think(t_philo *philo)
 {
-    t_pinfo pinfo;
-
-    pinfo = philo->pinfo;
     safe_print(philo, THINK);
-    
 }
 
 void    *routine(void *param)
 {
     t_philo *philo = (t_philo *)param;
-    t_pinfo pinfo = philo->pinfo;
+    t_pinfo *pinfo = philo->pinfo;
 
     if (philo->id % 2 == 0)
         t_sleep(philo);
-    while (!get_died(&pinfo))
+    while (!get_died(pinfo))
     {
         think(philo);
         eat(philo);
