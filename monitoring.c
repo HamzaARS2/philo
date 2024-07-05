@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 19:56:49 by helarras          #+#    #+#             */
-/*   Updated: 2024/07/02 16:23:35 by helarras         ###   ########.fr       */
+/*   Updated: 2024/07/05 19:56:33 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,20 @@
 
 void    *monitor(void *param)
 {
-    t_philo **philos = (t_philo **)param;
     int i;
-    long long s;
+    t_philo **philos;
+    t_pinfo *pinfo;
     
-    while (!get_died(philos[0]->pinfo)) 
+    philos = (t_philo **)param;
+    pinfo = philos[0]->pinfo;
+    while (!get_died(pinfo)) 
     {
         i = 0;
-        while (philos[i])
+        while (philos[i] && get_meals(&philos[i]->sd) < pinfo->num_eats)
         {
-            s = timestamp() - get_last_meal(&philos[i]->sd);
-            if (s >= philos[i]->pinfo->die_time)
+            if (timestamp() - get_last_meal(&philos[i]->sd) >= pinfo->die_time)
             {
-                set_died(philos[0]->pinfo, 1);
+                set_died(pinfo, 1);
                 safe_print(philos[i], DIED);
                 clear_mutexes(philos);
             }

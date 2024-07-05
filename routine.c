@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lunch.c                                            :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 01:10:31 by helarras          #+#    #+#             */
-/*   Updated: 2024/07/02 14:23:07 by helarras         ###   ########.fr       */
+/*   Updated: 2024/07/05 19:57:18 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void    eat(t_philo *philo)
     safe_print(philo, EAT);
     set_last_meal(&philo->sd);
     await(pinfo->eat_time);
+    increment_meals(&philo->sd);
     pthread_mutex_unlock(philo->r_fork);
     pthread_mutex_unlock(philo->l_fork);
 }
@@ -49,7 +50,7 @@ void    *routine(void *param)
 
     if (philo->id % 2 == 0)
         t_sleep(philo);
-    while (!get_died(pinfo))
+    while (!get_died(pinfo) && get_meals(&philo->sd) < pinfo->num_eats)
     {
         think(philo);
         eat(philo);

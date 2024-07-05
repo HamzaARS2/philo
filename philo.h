@@ -29,7 +29,10 @@ typedef struct s_pinfo {
 
 typedef struct s_shared_data {
     pthread_mutex_t last_meal_mutex;
-    unsigned long last_meal;
+    pthread_mutex_t meals_mutex;
+    unsigned long   last_meal;
+    int             meals;
+
 } t_shared_data;
 
 typedef struct s_philo {
@@ -44,11 +47,12 @@ typedef struct s_philo {
 // setters
 void    set_last_meal(t_shared_data *sd);
 void    set_died(t_pinfo *pinfo, int boolean);
+void    increment_meals(t_shared_data *sd);
 
 // getters
-unsigned long get_last_meal(t_shared_data *sd);
+long long get_last_meal(t_shared_data *sd);
 int get_died(t_pinfo *pinfo);
-
+int get_meals(t_shared_data *sd);
 // clean resources
 void    *free_philos(t_philo **philos, int size);
 void    clear_mutexes(t_philo **philos);
@@ -57,7 +61,7 @@ void    free_resources(t_philo **philos, t_pinfo *pinfo);
 void    safe_print(t_philo *philo, t_status status);
 
 void    *monitor(void *param);
-unsigned long   timestamp();
+long long   timestamp();
 unsigned long program_time(long start_time);
 void    await(unsigned long milies_time);
 int	    ft_atoi(const char *str);
@@ -67,7 +71,7 @@ void    join_threads(t_philo **philos, t_pinfo *pinfo);
 
 t_philo **create_philos(t_pinfo *pinfo);
 void    assign_forks(t_philo **philos, t_pinfo *pinfo);
-void    start_lunch(t_philo **philos, t_pinfo *pinfo);
+void    start_routine(t_philo **philos, t_pinfo *pinfo);
 
 void    *routine(void *param);
 #endif 

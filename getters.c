@@ -6,15 +6,15 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:23:01 by helarras          #+#    #+#             */
-/*   Updated: 2024/07/02 12:09:10 by helarras         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:04:33 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-unsigned long get_last_meal(t_shared_data *sd)
+long long get_last_meal(t_shared_data *sd)
 {
-    unsigned long last_meal;
+    long long last_meal;
     
     pthread_mutex_lock(&sd->last_meal_mutex);
     last_meal = sd->last_meal;
@@ -30,4 +30,14 @@ int get_died(t_pinfo *pinfo)
     boolean = pinfo->died;
     pthread_mutex_unlock(pinfo->died_mutex);
     return (boolean);
+}
+
+int get_meals(t_shared_data *sd)
+{
+    int meals;
+
+    pthread_mutex_lock(&sd->meals_mutex);
+    meals = sd->meals;
+    pthread_mutex_unlock(&sd->meals_mutex);
+    return (meals);
 }

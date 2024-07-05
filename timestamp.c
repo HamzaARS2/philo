@@ -6,13 +6,13 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 18:42:26 by helarras          #+#    #+#             */
-/*   Updated: 2024/06/26 18:42:46 by helarras         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:28:29 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-unsigned long   timestamp()
+long long   timestamp()
 {
     struct timeval ct;
     

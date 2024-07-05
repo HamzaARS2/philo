@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void	create_philos(t_pinfo pinfo, void *(*fun)(void *))
+void	philos_manager(t_pinfo pinfo, void *(*fun)(void *))
 {
     
 }

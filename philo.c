@@ -29,9 +29,10 @@ int main(int ac, char **av)
     if (!philos)
         return (0);
     assign_forks(philos, pinfo);
-    start_lunch(philos, pinfo);
+    start_routine(philos, pinfo);
     pthread_create(&mthread, NULL, monitor, philos);
     join_threads(philos, pinfo);
+    clear_mutexes(philos);
     pthread_join(mthread, NULL);
     
     free_resources(philos, pinfo);
