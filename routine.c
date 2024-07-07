@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 01:10:31 by helarras          #+#    #+#             */
-/*   Updated: 2024/07/05 19:57:18 by helarras         ###   ########.fr       */
+/*   Updated: 2024/07/07 11:55:10 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ void    think(t_philo *philo)
     safe_print(philo, THINK);
 }
 
+int check_meals(t_philo *philo)
+{
+    t_pinfo *pinfo;
+    
+    pinfo = philo->pinfo;
+    return (get_meals(&philo->sd) < pinfo->num_eats || pinfo->num_eats == -1);
+}
+
 void    *routine(void *param)
 {
     t_philo *philo = (t_philo *)param;
@@ -50,7 +58,7 @@ void    *routine(void *param)
 
     if (philo->id % 2 == 0)
         t_sleep(philo);
-    while (!get_died(pinfo) && get_meals(&philo->sd) < pinfo->num_eats)
+    while (!get_died(pinfo) && check_meals(philo))
     {
         think(philo);
         eat(philo);

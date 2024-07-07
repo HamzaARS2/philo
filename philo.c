@@ -23,7 +23,7 @@ int main(int ac, char **av)
     t_philo     **philos;
     pthread_t   mthread;
 
-    atexit(ff);
+    // atexit(ff);
     philo_init(&pinfo, ac - 1, av + 1);
     philos = create_philos(pinfo);
     if (!philos)
@@ -32,9 +32,8 @@ int main(int ac, char **av)
     start_routine(philos, pinfo);
     pthread_create(&mthread, NULL, monitor, philos);
     join_threads(philos, pinfo);
-    clear_mutexes(philos);
     pthread_join(mthread, NULL);
-    
+    clear_mutexes(philos);
+
     free_resources(philos, pinfo);
 }
-
