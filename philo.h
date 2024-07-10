@@ -40,6 +40,7 @@ typedef struct s_philo {
     pthread_t       thread;
     pthread_mutex_t *l_fork;
     pthread_mutex_t *r_fork;
+    int             is_full;
     t_shared_data sd;
     t_pinfo *pinfo;
 } t_philo;

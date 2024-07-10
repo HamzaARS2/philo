@@ -30,6 +30,7 @@ t_philo **create_philos(t_pinfo *pinfo)
         philos[i]->id = i + 1;
         philos[i]->pinfo = pinfo;
         philos[i]->sd.meals = 0;
+        philos[i]->is_full = 0;
         philos[i]->r_fork = malloc(sizeof(pthread_mutex_t));
         if (!(philos[i]->r_fork))
             return (free_philos(philos, pinfo->pnumber));
