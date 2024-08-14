@@ -12,38 +12,35 @@
 
 #include "philo.h"
 
-void    clear_mutexes(t_philo **philos)
+void    clear_mutexes(t_philo *philos)
 {
     int     i;
     t_pinfo *pinfo;
     
-    pinfo = philos[0]->pinfo;
+    pinfo = philos[0].pinfo;
     i = 0;
     while (i < pinfo->pnumber)
     {
-        pthread_mutex_destroy(philos[i]->r_fork);
-        pthread_mutex_destroy(&philos[i]->sd.last_meal_mutex);
+        pthread_mutex_destroy(philos[i].r_fork);
+        pthread_mutex_destroy(&philos[i].sd.last_meal_mutex);
         pthread_mutex_destroy(pinfo->print_mutex);
         pthread_mutex_destroy(pinfo->died_mutex);
         i++;
     }
 }
 
-void    *free_philos(t_philo **philos, int size)
+void    *free_philos(t_philo *philos, int size)
 {
     int i;
 
     i = 0;
-    while (philos[i] && i < size)
-    {
-        free(philos[i]->r_fork);
-        free(philos[i++]);
-    }
+    while (i < size)
+        free(philos[i++].r_fork);
     free(philos);
     return (NULL);
 }
 
-void    free_resources(t_philo **philos, t_pinfo *pinfo)
+void    free_resources(t_philo *philos, t_pinfo *pinfo)
 {
     free(pinfo->print_mutex);
     free(pinfo->died_mutex);

@@ -12,11 +12,11 @@
 
 #include "philo.h"
 
-void    join_threads(t_philo **philos, t_pinfo *pinfo)
+void    join_threads(t_philo *philos, t_pinfo *pinfo)
 {
     int i;
 
     i = 0;
     while (i < pinfo->pnumber)
-        pthread_join(philos[i++]->thread, NULL);
+        pthread_join(philos[i++].thread, NULL);
 }

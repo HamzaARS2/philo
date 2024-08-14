@@ -13,17 +13,16 @@
 #include "philo.h"
 
 
-
-int check_death(t_philo **philos) {
-    t_pinfo *pinfo = philos[0]->pinfo;
+int check_death(t_philo *philos) {
+    t_pinfo *pinfo = philos[0].pinfo;
     int i = 0;
 
-    while (philos[i])
+    while (i < pinfo->pnumber)
     {
-        if (timestamp() - get_last_meal(&philos[i]->sd) >= pinfo->die_time)
+        if (timestamp() - get_last_meal(&philos[i].sd) >= pinfo->die_time)
         {
             set_died(pinfo, 1);
-            safe_print(philos[i], DIED);
+            safe_print(&philos[i], DIED);
             return (0);
         }
         i++;
@@ -31,17 +30,17 @@ int check_death(t_philo **philos) {
     return (1);
 }
 
-static int check_meals(t_philo **philos, int *full) {
+static int check_meals(t_philo *philos, int *full) {
     
-    t_pinfo *pinfo = philos[0]->pinfo;
+    t_pinfo *pinfo = philos[0].pinfo;
     int i = 0;
 
     if (pinfo->num_eats == -1)
         return (1);
 
-    while (philos[i]) {
-        if (get_meals(&philos[i]->sd) >= pinfo->num_eats && !philos[i]->is_full) {
-            philos[i]->is_full = 1;
+    while (i < pinfo->pnumber) {
+        if (get_meals(&philos[i].sd) >= pinfo->num_eats && !philos[i].is_full) {
+            philos[i].is_full = 1;
             (*full)++;
         }
         if ((*full) >= pinfo->pnumber)
@@ -54,12 +53,12 @@ static int check_meals(t_philo **philos, int *full) {
 void    *monitor(void *param)
 {
     int i;
-    t_philo **philos;
+    t_philo *philos;
     t_pinfo *pinfo;
     int full = 0;
     
-    philos = (t_philo **)param;
-    pinfo = philos[0]->pinfo;
+    philos = (t_philo *)param;
+    pinfo = philos[0].pinfo;
     while (!get_died(pinfo) && check_meals(philos, &full)) 
     {
         i = 0;

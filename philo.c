@@ -20,7 +20,7 @@ void    ff()
 int main(int ac, char **av)
 {
     t_pinfo     *pinfo;
-    t_philo     **philos;
+    t_philo     *philos;
     pthread_t   mthread;
 
     // atexit(ff);
