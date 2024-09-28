@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 15:41:57 by helarras          #+#    #+#             */
-/*   Updated: 2024/06/09 15:52:55 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:51:23 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	ft_atoi(const char *str, int *error_found)
 	size_t	i;
 	int		sign;
 	long	number;
-	long	temp;
 
 	number = 0;
 	sign = 1;
@@ -50,12 +49,7 @@ int	ft_atoi(const char *str, int *error_found)
 			*error_found = 1;
 			return (0);
 		}
-		temp = number;
 		number = (number * 10) + str[i++] - 48;
-		if (number / 10 != temp && sign > 0)
-			return (-1);
-		if (number / 10 != temp && sign < 0)
-			return (0);
 	}
 	return (number * sign);
 }
