@@ -6,12 +6,11 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 19:56:49 by helarras          #+#    #+#             */
-/*   Updated: 2024/07/07 12:12:26 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/28 11:29:13 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
 
 int check_death(t_philo *philos) {
     t_pinfo *pinfo = philos[0].pinfo;
@@ -32,19 +31,26 @@ int check_death(t_philo *philos) {
 
 static int check_meals(t_philo *philos, int *full) {
     
-    t_pinfo *pinfo = philos[0].pinfo;
-    int i = 0;
+    t_pinfo *pinfo;
+    int i;
+    
+    pinfo = philos[0].pinfo;
+    i = 0;
 
     if (pinfo->num_eats == -1)
         return (1);
-
     while (i < pinfo->pnumber) {
-        if (get_meals(&philos[i].sd) >= pinfo->num_eats && !philos[i].is_full) {
+        if (get_meals(&philos[i].sd) >= pinfo->num_eats && !philos[i].is_full) 
+        {
             philos[i].is_full = 1;
             (*full)++;
         }
         if ((*full) >= pinfo->pnumber)
+        {
+            set_full(pinfo, 1);
+            // exit(0);
             return (0);
+        }
         i++;
     }
     return (1);
@@ -55,16 +61,16 @@ void    *monitor(void *param)
     int i;
     t_philo *philos;
     t_pinfo *pinfo;
-    int full = 0;
+    int full;
     
+    full = 0;
     philos = (t_philo *)param;
     pinfo = philos[0].pinfo;
     while (!get_died(pinfo) && check_meals(philos, &full)) 
     {
         i = 0;
-
         check_death(philos);
-
     }
+    unlock_mutexes(philos);
     return (NULL);
 }

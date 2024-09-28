@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:23:01 by helarras          #+#    #+#             */
-/*   Updated: 2024/07/03 16:04:33 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/28 11:14:40 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,14 @@ int get_meals(t_shared_data *sd)
     meals = sd->meals;
     pthread_mutex_unlock(&sd->meals_mutex);
     return (meals);
+}
+
+int get_full(t_pinfo *pinfo)
+{
+    int is_full;
+
+    pthread_mutex_lock(pinfo->full_mutex);
+    is_full = pinfo->full;
+    pthread_mutex_unlock(pinfo->full_mutex);
+    return (is_full);
 }

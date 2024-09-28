@@ -24,7 +24,8 @@ int main(int ac, char **av)
     pthread_t   mthread;
 
     // atexit(ff);
-    philo_init(&pinfo, ac - 1, av + 1);
+    if (!philo_init(&pinfo, ac - 1, av + 1))
+        return (EXIT_FAILURE);
     philos = create_philos(pinfo);
     if (!philos)
         return (0);
@@ -34,6 +35,5 @@ int main(int ac, char **av)
     join_threads(philos, pinfo);
     pthread_join(mthread, NULL);
     clear_mutexes(philos);
-
     free_resources(philos, pinfo);
 }

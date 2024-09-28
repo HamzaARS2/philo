@@ -27,7 +27,7 @@ static int	ft_isdigit(int c)
 	return (c >= 48 && c <= 57);
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *str, int *error_found)
 {
 	size_t	i;
 	int		sign;
@@ -43,8 +43,13 @@ int	ft_atoi(const char *str)
 			sign *= -1;
 		i++;
 	}
-	while (ft_isdigit(str[i]))
+	while (str[i])
 	{
+		if (!ft_isdigit(str[i]))
+		{
+			*error_found = 1;
+			return (0);
+		}
 		temp = number;
 		number = (number * 10) + str[i++] - 48;
 		if (number / 10 != temp && sign > 0)

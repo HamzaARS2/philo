@@ -33,6 +33,7 @@ t_philo *create_philos(t_pinfo *pinfo)
         pthread_mutex_init(philos[i].r_fork, NULL);
         pthread_mutex_init(&philos[i].sd.last_meal_mutex, NULL);
         pthread_mutex_init(&philos[i].sd.meals_mutex, NULL);
+        
         i++;
     }
     return (philos);
@@ -61,6 +62,7 @@ void    start_routine(t_philo *philos, t_pinfo *pinfo)
     i = 0;
     pinfo->start_time = timestamp();
     pinfo->died = 0;
+    pinfo->full = 0;
     while (i < pinfo->pnumber)
     {
         philos[i].pinfo = pinfo;

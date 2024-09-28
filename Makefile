@@ -8,11 +8,12 @@ MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
 NAME := philo
 
+# ADS = -fsanitize=thread -g
+
 all: $(NAME) clean
 
-
 $(NAME): $(MAIN_OBJS)
-	$(CC) $(MAIN_OBJS) -o $@
+	$(CC) $(MAIN_OBJS) -o $@ $(ADS)
 
 %.o: %.c philo.h
 	$(CC) -c $< -o $@

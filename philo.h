@@ -18,7 +18,9 @@ typedef enum e_status {
 typedef struct s_pinfo {
     pthread_mutex_t *print_mutex;
     pthread_mutex_t *died_mutex;
+    pthread_mutex_t *full_mutex;
     int died;
+    int full;
     long start_time;
     int pnumber;
     int die_time;
@@ -49,23 +51,26 @@ typedef struct s_philo {
 void    set_last_meal(t_shared_data *sd);
 void    set_died(t_pinfo *pinfo, int boolean);
 void    increment_meals(t_shared_data *sd);
+void    set_full(t_pinfo *pinfo, int is_full);
 
 // getters
 long long get_last_meal(t_shared_data *sd);
 int get_died(t_pinfo *pinfo);
 int get_meals(t_shared_data *sd);
+int get_full(t_pinfo *pinfo);
 // clean resources
 void    *free_philos(t_philo *philos, int size);
 void    clear_mutexes(t_philo *philos);
 void    free_resources(t_philo *philos, t_pinfo *pinfo);
+void    unlock_mutexes(t_philo *philos);
 
 void    safe_print(t_philo *philo, t_status status);
 
 void    *monitor(void *param);
 long long   timestamp();
 unsigned long program_time(long start_time);
-void    await(unsigned long milies_time);
-int	    ft_atoi(const char *str);
+void    await(unsigned long milies_time, t_pinfo *pinfo);
+int	    ft_atoi(const char *str, int *error_found);
 int     philo_init(t_pinfo **pinfo, int count, char **data);
 
 void    join_threads(t_philo *philos, t_pinfo *pinfo);
