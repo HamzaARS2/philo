@@ -8,7 +8,7 @@ MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
 NAME := philo
 
-# ADS = -fsanitize=thread -g
+#ADS = -fsanitize=thread -g
 
 all: $(NAME) clean
 

@@ -65,7 +65,7 @@ void    start_routine(t_philo *philos, t_pinfo *pinfo)
     pinfo->full = 0;
     while (i < pinfo->pnumber)
     {
-        philos[i].pinfo = pinfo;
+        // philos[i].pinfo = pinfo;
         set_last_meal(&philos[i].sd);
         pthread_create(&(philos[i].thread), NULL, routine, &philos[i]);
         i++;

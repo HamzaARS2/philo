@@ -17,6 +17,7 @@ void    ff()
     system("leaks -q philo");
 }
 
+
 int main(int ac, char **av)
 {
     t_pinfo     *pinfo;
@@ -31,9 +32,8 @@ int main(int ac, char **av)
         return (0);
     assign_forks(philos, pinfo);
     start_routine(philos, pinfo);
-    pthread_create(&mthread, NULL, monitor, philos);
+    monitor(philos);
     join_threads(philos, pinfo);
-    pthread_join(mthread, NULL);
     clear_mutexes(philos);
     free_resources(philos, pinfo);
 }

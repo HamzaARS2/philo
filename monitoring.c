@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 19:56:49 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/28 11:29:13 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:55:09 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int check_meals(t_philo *philos, int *full) {
         if ((*full) >= pinfo->pnumber)
         {
             set_full(pinfo, 1);
-            // exit(0);
             return (0);
         }
         i++;

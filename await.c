@@ -6,5 +6,5 @@ void    await(unsigned long ms, t_pinfo *pinfo)
     
     start_time = timestamp();
     while (timestamp() - start_time < ms && !get_died(pinfo))
-        usleep(50);
+        usleep(100);
 }

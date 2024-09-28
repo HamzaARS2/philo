@@ -38,7 +38,7 @@ int init_mutexes(t_pinfo *pinfo)
 
 int check_params(t_pinfo *pinfo, char *num_eats)
 {
-    return (pinfo->pnumber <= 0 || pinfo->die_time <= 0 || pinfo->eat_time <= 0 || (num_eats && pinfo->num_eats <= 0));
+    return (pinfo->pnumber <= 0 || pinfo->die_time <= 0 || pinfo->eat_time <= 0 || pinfo->sleep_time <= 0 || (num_eats && pinfo->num_eats <= 0));
 }
 
 int check_errors(t_pinfo *pinfo, char *num_eats, int error_found)
