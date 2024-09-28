@@ -6,16 +6,18 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 19:56:49 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/28 13:55:09 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:44:30 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 int check_death(t_philo *philos) {
-    t_pinfo *pinfo = philos[0].pinfo;
-    int i = 0;
-
+    int i;
+    t_pinfo *pinfo;
+    
+    i = 0;
+    pinfo = philos[0].pinfo;
     while (i < pinfo->pnumber)
     {
         if (timestamp() - get_last_meal(&philos[i].sd) >= pinfo->die_time)
@@ -29,14 +31,13 @@ int check_death(t_philo *philos) {
     return (1);
 }
 
-static int check_meals(t_philo *philos, int *full) {
-    
-    t_pinfo *pinfo;
+int check_meals(t_philo *philos, int *full)
+{    
     int i;
+    t_pinfo *pinfo;
     
-    pinfo = philos[0].pinfo;
     i = 0;
-
+    pinfo = philos[0].pinfo;
     if (pinfo->num_eats == -1)
         return (1);
     while (i < pinfo->pnumber) {
