@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 18:37:11 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/28 16:53:44 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/29 10:28:47 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	main(int ac, char **av)
 {
 	t_pinfo		*pinfo;
 	t_philo		*philos;
-	pthread_t	mthread;
 
 	if (!philo_init(&pinfo, ac - 1, av + 1))
 		return (EXIT_FAILURE);

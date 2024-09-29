@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 14:57:16 by helarras          #+#    #+#             */
-/*   Updated: 2024/06/09 15:54:23 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/29 10:22:23 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	philo_init(t_pinfo **pinfo, int count, char **data)
 	int	error_found;
 
 	error_found = 0;
-	if (count < 4)
+	if (count < 4 || count > 5)
 		return (0);
 	*pinfo = malloc(sizeof(t_pinfo));
 	if (!*pinfo)

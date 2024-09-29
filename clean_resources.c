@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:03:03 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/28 11:48:06 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/29 10:16:44 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	free_resources(t_philo *philos, t_pinfo *pinfo)
 	free(pinfo->print_mutex);
 	free(pinfo->died_mutex);
 	free(pinfo->full_mutex);
-	free(pinfo);
 	free_philos(philos, pinfo->pnumber);
+	free(pinfo);
 }
 
 void	unlock_mutexes(t_philo *philos)
